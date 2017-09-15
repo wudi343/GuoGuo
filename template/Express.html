@@ -1,0 +1,185 @@
+{template 'common/header'}
+{php load()->func('tpl')}
+<style>
+    .field label{float:left;margin:0 !important; width:140px;}
+        .page-nav {
+			float:left;
+            margin: 0 0 0 -1px;
+			padding:0;
+            width: 100%;
+            min-width: 800px;
+			height:50px;
+        }
+
+        .page-nav > li > a {
+            display: block;
+        }
+
+        .page-nav-tabs {
+            background: #f9f9f9;
+        }
+        .page-nav-tabs > li {
+            line-height: 50px;
+            float: left;
+            list-style: none;
+            display: block;
+            text-align: -webkit-match-parent;
+        }
+
+        .page-nav-tabs > li > a {
+            font-size: 14px;
+            color: #666;
+			height:50px;
+            line-height: 50px;
+            padding: 0 10px;
+            margin: 0;
+            border: 1px solid transparent;
+            border-bottom-width: 0px;
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            border-radius: 0;
+			border-top:0;
+        }
+
+        .page-nav-tabs > li > a, .page-nav-tabs > li > a:focus {
+            border-radius: 0 !important;
+            background-color: #fcfcfc;
+            color: #999;
+            margin-right: -1px;
+            position: relative;
+            z-index: 11;
+            border-color: #d9edf7;
+            text-decoration: none;
+        }
+
+        .page-nav-tabs >li >a:hover {
+            background-color: #FFF;
+        }
+
+        .page-nav-tabs > li.active > a, .page-nav-tabs > li.active > a:hover, .page-nav-tabs > li.active > a:focus {
+            color: #576373;
+            border-color: #c5d0dc;
+            border-top: 2px solid #4c8fbd;
+            border-bottom-color: transparent;
+            background-color: #FFF;
+            z-index: 12;
+            margin-top: -1px;
+            box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.15);
+        }
+		.table{border-top:1px solid #d9edf7;}
+		.table-hover .navbar-inner tr th{line-height:30px;}
+		.status{border-radius:10px;}
+</style>
+
+<div class="main">
+    <div class="panel panel-info">
+        <div class="panel-heading">筛选</div>
+        <div class="panel-body">
+            <form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="ewei_express" />
+                <input type="hidden" name="do" value="Express" />
+                <input type="hidden" name="id" value="{$reid}" />
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">手机</label>
+				<div class="col-sm-8 col-lg-5">
+					<input class="form-control" name="mobile" id="" type="text" value="{$_GPC['mobile']}" placeholder="可输入手机号"> 
+				</div>                  
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">编号</label>
+				<div class="col-sm-8 col-lg-5">
+					<input class="form-control" name="code" id="" type="text" value="{$_GPC['code']}" placeholder="可输入编号"> 
+				</div>                  
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">快递单号</label>
+				<div class="col-sm-8 col-lg-5">
+					<input class="form-control" name="express_sn" id="" type="text" value="{$_GPC['express_sn']}" placeholder="可输入快递单号"> 
+				</div>                  
+			</div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">入库时间</label>
+                    <div class="col-xs-12 col-sm-8 col-lg-3">
+						{php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d', $starttime),'endtime'=>date('Y-m-d', $endtime)));}
+                    </div>
+                </div>
+                <div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
+                    <div class=" col-xs-12 col-sm-2 col-lg-2">
+                        <div class='btn-group'>
+                        <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+                        <!--<input type="submit" name="export" value="导出数据" class="btn btn-primary">-->
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-info">
+<ul class="page-nav page-nav-tabs">
+	<li>
+	<a href="{php echo $this->createWebUrl('Express', array('id' => $reid))}">全部记录({$list_total})</a>
+	</li>
+	<li {if $status == '0'}class="active"{/if}>
+	<a href="{php echo $this->createWebUrl('Express', array('status' => '0','id' => $reid))}">待取货({$list_count_0})</a>
+	</li>
+	<li {if $status == '1'}class="active"{/if}>
+	<a href="{php echo $this->createWebUrl('Express', array('status' => 1, 'id' => $reid))}">送货中({$list_count_1})</a>
+	</li>
+	<li {if $status == '2'}class="active"{/if}>
+	<a href="{php echo $this->createWebUrl('Express', array('status' => 2, 'id' => $reid))}">已完成({$list_count_2})</a>
+	</li>
+</ul>
+        <div class="panel panel-defaul">
+            <form action="" method="post" onsubmit="">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+						<tr>
+							<th style="width:20px;">ID</th>
+							<th style="width:50px;">状态</th>
+							<th style="width:50px;">编号</th>
+							<th style="width:80px;">收件人手机</th>
+							<th style="width:50px;">快递公司</th>
+							<th style="width:100px;">快递单号</th>
+							<th style="width:100px;">入库时间</th>
+							<th style="width:50px;">经办人</th>
+							<th style="width:30px;">代取</th>
+							<th style="width:30px;">评价</th>
+							<th style="width:100px;">完成时间</th>
+						</tr>
+                    </thead>
+                    <tbody>
+				{loop $list $item}
+				<tr>
+					<td>{$item['id']}</td>
+					<td>{if $item['status'] == '2'}<span class="label label-success">已完成{elseif $item['status'] == '1'}<span class="label label-info">送货中{else}<span class="label label-primary">待取货{/if}</span></td>
+					<td>{$item['code']}</td>
+					<td>{$item['mobile']}</td>
+					<td>{$item['express_company']}</td>
+					<td><a href="http://cha.chawuliu.cn/?stype=kd&q={$item['express_sn']}" target="_blank">{$item['express_sn']}</a></td>
+					<td>{$item['createtime']}</td>
+					<td>{$item['worker']}</td>
+					<td>{if $item['transfer'] == '1'}<span class="label label-warning">是</span>{/if}</td>
+					<td>
+						{if $item['evaluate'] == '1'}<a href="javascript:void(0)" onclick="alert('<?php echo $this->getEvaluation($item['id']);?>')" class="btn btn-success btn-sm">查看</a>{/if}
+					</td>
+					<td>{$item['finishtime']}</td>
+				</tr>
+				{/loop}
+                    </tbody>
+                </table>
+            </form>
+            {$pager}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	require(['daterangepicker'], function($){
+		$('.daterange').on('apply.daterangepicker', function(ev, picker) {
+			$('#form1')[0].submit();
+		});
+	});
+</script>
+{template 'common/footer'}

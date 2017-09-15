@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>建工裹裹物流服务平台</title>
+    <link rel="stylesheet" href="../app/resource/pintu/pintuer.css">
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
+    <script src="../app/resource/pintu/pintuer.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>  
+	<style type="text/css">
+	#cover{display:none;position:absolute;left:0;top:0;z-index:18888;background-color:#000000;opacity:0.7;}
+	#guide{display:none;position:absolute;right:18px;top:5px;z-index:19999;}
+	#guide img{width:260px;height:180px;}
+	</style>
+</head>
+<body class="bg">
+<div class="layout doc-header">
+	<div class="navbar bg-blue bg-inverse">
+		<ul class="nav nav-inline nav-menu nav-tabs clearfix">
+			<li class="nav-head">包裹代取</li>
+		</ul>
+	</div>	
+	
+	{if $r['t_openid']==''}
+	<div class="padding text-center">
+		<blockquote class="quote border-yellow doc-quoteyellow">
+			<strong>接受代取委托</strong> 您的朋友<b class="text-yellow">{$result['mobile']}</b>委托您帮他代取<b class="text-yellow">{$result['express_company']}*{$result['code']}</b>包裹，如果同意请点击“接受”按钮，如拒绝请关闭本页面。
+		</blockquote>	
+				
+		<a href="index.php?i=6&c=entry&do=transfer&m=ewei_express&action=receive_accept&tid={$tid}" class="button bg-sub button-big button-block margin-top">接受</a>
+		
+	</div>
+	{else}
+	<div class="padding text-center">
+		<blockquote class="quote border-yellow doc-quoteyellow">
+			<strong>取货须知</strong> 请将此二维码出示给工作人员完成取货，二维码有效时间为60秒，截屏无法取货！
+		</blockquote>
+		
+		<br>
+		<img src="http://pan.baidu.com/share/qrcode?w=300&h=300&url={$url}" />
+		<br>
+		
+		<span class="text-center margin" id="timeShow"></span>
+		<script>
+		var intDiff = parseInt(60);//倒计时总秒数量
+		function timer(intDiff){
+		  var iCount = window.setInterval(function(){
+		  if(intDiff == 0){
+			clearInterval(iCount);
+			window.location.reload();
+		  }
+		  $("#timeShow").html('二维码剩余<font>'+intDiff+'</font>秒过期，页面会自动刷新。');
+		  intDiff--;
+		  }, 1000);
+		} 
+		$(function(){
+		  timer(intDiff);
+		});
+		</script>
+		
+		<div class="tag bg-gray margin-top h2">{$result['express_company']} 编号:{$result['code']}</div>		
+	</div>
+	{/if}
+	
+    <div class="border-top padding-top" style="height:100px">
+        <div class="text-center">
+            版权所有 ©  建工裹裹物流服务平台 All Rights Reserved.</div>
+    </div>
+		
+	<div class="fixed" data-style="fixed-bottom" data-offset-fixed="10" style="position:fixed;bottom:0px;">
+		<div class="button-group button-group-justified" style="z-index: 9;background: #f4f4f4">
+			<a href="index.php?i=6&c=entry&do=index&m=ewei_express" class="button"><span class="icon-send  text-large"></span><br>我的快递</a>
+			<!-- <a href="#" class="button"><span class="icon-pencil-square-o  text-large"></span><br>我的订单</a> -->
+			<a href="index.php?i=6&c=entry&do=setting&m=ewei_express" class="button"><span class="icon-user  text-large"></span><br>个人设置</a>
+		</div>
+	</div>
+</div>
+</body>
+</html>

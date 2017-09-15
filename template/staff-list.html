@@ -1,0 +1,53 @@
+{template 'common/header'}
+{php load()->func('tpl')}
+<ul class="nav nav-tabs">
+    <li class="active"><a href="{php echo  $this->createWebUrl('employee', array('name'=>'ewei_express'));}">员工管理</a></li>
+	<li><a href="{php echo  $this->createWebUrl('staffadd', array('name'=>'ewei_express'));}">添加员工</a></li>
+</ul>
+
+<div class="clearfix">    
+    <div class="panel panel-default">
+    	<div class="panel-heading">
+            员工列表
+        </div>
+        <div class="table-responsive panel-body" style="overflow:visible;">
+            <table class="table table-hover">
+            	<thead>
+                	<tr class="active">
+                    	<td>员工ID</td>
+                        <td>姓名</td>
+                        <td>手机号</td>
+						<td>备注</td>
+                        <td width="300">操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                	{loop $list $val}
+                	<tr>
+                    	<td>{$val[e_id]}</td>
+                        <td>{$val[e_name]}</td>
+						<td>{$val[e_mobile]}</td>
+						<td>{$val[note]}</td>
+                        <td style="overflow:visible;">
+                        	<div class="btn-group btn-group-sm">
+                                <a class="btn btn-default" href="{php echo $this->createWebUrl('staffadd',array('e_id'=>$val['e_id']));}"><i class="fa fa-edit"></i> 编辑</a>
+                                <a class="btn btn-default" href="{php echo $this->createWebUrl('staffdelete', array('e_id'=>$val['e_id']))}" onclick="confirm('确认删除该员工信息?');"><i class="fa fa-remove"></i> 删除</a>
+                                <a class="btn btn-default" href="http://pan.baidu.com/share/qrcode?w=200&h=200&url=http://weixin.cctc.cq.cn/{php echo str_replace('&','%26',$this->createMobileUrl('staffcheck',array('e_id'=>$val['e_id'])));}" target="_blank"><i class="fa fa-qrcode"></i> 验证</a>                                
+                            </div>
+                        </td>
+                    </tr>
+                    {/loop}
+                    
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="panel-body text-center">
+            {$pager}
+        </div>
+
+    </div>
+</div>
+
+
+{template 'common/footer'}

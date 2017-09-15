@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>建工裹裹物流服务平台</title>
+    <link rel="stylesheet" href="../app/resource/pintu/pintuer.css">
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
+    <script src="../app/resource/pintu/pintuer.js"></script>
+
+</head>
+<body class="bg">
+<div class="layout doc-header">
+	<div class="navbar bg-blue bg-inverse">
+		<ul class="nav nav-inline nav-menu nav-tabs clearfix">
+			<li class="nav-head">快递信息</li>
+		</ul>
+	</div>	
+	
+	<div class="padding text-center">
+		<blockquote class="quote border-yellow doc-quoteyellow">
+			<strong>操作须知</strong> 请仔细核对快递单号、收件人电话信息，确认无误后先点击“完成出库”按钮，再将货物交给收件人。
+		</blockquote>
+			
+		<div class="tag bg-gray margin-top h2">编号：{$result['code']}</div>
+		<div class="tag bg-gray margin-top h2">{$result['express_company']}：{$result['express_sn']}</div>
+		<!--<div class="tag bg-gray margin-top h2">收件人姓名：{$result['realname']}</div>-->
+		<div class="tag bg-gray margin-top h2">收件人电话：{$result['mobile']}</div>
+			
+		<form method="post">
+			<input type="hidden" name="pid" value="{$result['id']}">
+			<input type="hidden" name="mobile" value="{$result['mobile']}">
+			<input type="hidden" name="express_company" value="{$result['express_company']}">
+			<input type="hidden" name="express_sn" value="{$result['express_sn']}">
+			<button type="submit" class="button bg-dot button-big button-block margin-top">完成出库</button>
+		</form>
+		
+	</div>
+	
+	
+    <div class="border-top padding-top" style="height:100px">
+        <div class="text-center">
+            版权所有 ©  建工裹裹物流服务平台 All Rights Reserved.</div>
+    </div>
+	
+	<div class="fixed" data-style="fixed-bottom" data-offset-fixed="10" style="position:fixed;bottom:0px;">
+		<div class="button-group button-group-justified" style="z-index: 9;background: #f4f4f4">
+			<a href="index.php?i=6&c=entry&do=TaskList&m=ewei_express" class="button"><span class="icon-tasks  text-large"></span><br>派送任务</a>
+			<a href="index.php?i=6&c=entry&do=PackageSearch&m=ewei_express" class="button"><span class="icon-search  text-large"></span><br>查询快递</a>
+		</div>
+	</div>
+	
+</div>
+</body>
+</html>

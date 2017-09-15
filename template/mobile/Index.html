@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>建工裹裹物流服务平台</title>
+    <link rel="stylesheet" href="../app/resource/pintu/pintuer.css">
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
+    <script src="../app/resource/pintu/pintuer.js"></script>
+
+</head>
+<body class="bg">
+<div class="layout doc-header">
+	<div class="navbar bg-blue bg-inverse">
+		<ul class="nav nav-inline nav-menu nav-tabs clearfix">
+			<li class="nav-head">我的快递列表</li>
+		</ul>
+	</div>	
+	
+	<div class="text-center border-bottom">					
+		<div class="margin button-group border-blue check" align="center">
+			<a href="{php echo $this->createMobileUrl('index',array('weid' => $row[weid], 'id' => $reid, 'status'=>0))}" class="button {if $status==0}active{/if}">
+				自取快递</a>
+			<a href="{php echo $this->createMobileUrl('index',array('weid' => $row[weid], 'id' => $reid, 'status'=>1))}" class="button {if $status==1}active{/if}">
+				送货上门</a>
+			<a href="{php echo $this->createMobileUrl('index',array('weid' => $row[weid], 'id' => $reid, 'status'=>2))}" class="button {if $status==2}active{/if}">
+				已完成</a>
+		</div>
+	</div>
+	
+	{loop $lists $list}
+	<div class="panel-group">
+		<div class="media media-x">
+			<a class="float-left" href="#">
+				<img src="../addons/ewei_express/template/mobile/images/logo/{$list['express_company']}.jpg" class="img-border radius-circle img-responsive">
+			</a>
+			<div class="media-body">
+				<span class="tag bg-sub h4 radius-none">编号:{$list['code']}</span>
+				{if $list['transfer']==1}<span class="tag bg-yellow h4 radius-none">代取中</span>{/if}
+				
+				{if $status==1}<span class="tag bg-yellow h4 radius-none">
+				<?php 
+					$r = $this->getDelivery($list['id']);
+					echo $r['status'];
+				?>
+				</span>{/if}
+				
+				{if $status==2}
+					{if $list['evaluate']==0}
+						<a href="index.php?i=6&c=entry&do=Evaluation&m=ewei_express&pid={$list['id']}" class="button bg-red float-right">去评价</a>
+					{else}
+						<button class="button bg-gray float-right">已评价</button>
+					{/if}
+				{/if}
+				
+				<strong class="margin-top">{$list['express_company']}</strong>
+				入库时间:{$list['createtime']}
+				
+				{if $status==1}
+					<?php
+						if($r['status'] == '等待称重计费'){
+							echo '<br><span class="tag bg-dot margin-bottom">小哥称重计费中，请耐心等待~</span>';
+							echo '<a href="javascript:void(0);" onclick="if(confirm(\'确定要取消本订单吗?\')){this.href=\'index.php?i=6&c=entry&do=CancelOrder&m=ewei_express&pid='.$list['id'].'\'}" class="button bg-red float-right margin-top">取消订单</a>';
+						}
+						if($r['status'] == '等待付款'){
+							echo '<br><span class="tag bg-dot">运费'.$r['price'].'元(计费重量'.$r['weight'].'kg)，付款后小哥才会出发哦~</span>';
+							echo '<a href="javascript:void(0);" onclick="if(confirm(\'确定要取消本订单吗?\')){this.href=\'index.php?i=6&c=entry&do=CancelOrder&m=ewei_express&pid='.$list['id'].'\'}" class="button bg-red float-right margin-top">取消订单</a>';
+							echo '<a href="index.php?i=6&c=entry&do=pay&m=ewei_express&pid='.$list['id'].'" class="button bg-sub float-right margin-top">去支付</a>';
+						}
+						if($r['status'] == '送货中'){
+							echo '<br>付款时间:'.$r['paytime'].'<br><span class="tag bg-mix">小哥正朝你飞奔而来，请耐心等待~</span>';
+						}
+					?>
+				{/if}
+				
+				{if $status==2}
+				<br><span class="text-gray">收货时间:{$list['finishtime']}</span>
+				{/if}
+			</div>
+			
+			{if $status==0}
+			<a href="index.php?i=6&c=entry&do=SelfPick&m=ewei_express&pid={$list['id']}" class="button bg-main">我要自取</a>
+			<a href="index.php?i=6&c=entry&do=Delivery&m=ewei_express&pid={$list['id']}" class="button bg-sub">送货上门</a>
+			{/if}
+		</div>
+	</div>
+	{/loop}
+
+	<div class="border-top padding text-center">
+		<a href="index.php?i=6&c=entry&do=mobilemanage&m=ewei_express" class="button bg-dot button-big button-block">没有我的快递？新增手机号</a>
+	</div>
+	
+    <div class="border-top padding-top" style="height:100px">
+        <div class="text-center">
+            版权所有 ©  建工裹裹物流服务平台 All Rights Reserved.</div>
+    </div>
+	
+	<div class="fixed" data-style="fixed-bottom" data-offset-fixed="10" style="position:fixed;bottom:0px;">
+		<div class="button-group button-group-justified" style="z-index: 9;background: #f4f4f4">
+			<a href="#" class="button text-main"><span class="icon-send  text-large"></span><br>我的快递</a>
+			<a href="index.php?i=6&c=activity&a=token&do=display&" class="button"><span class="icon-hand-o-up  text-large"></span><br>新人领券</a>
+			<a href="index.php?i=6&c=entry&do=setting&m=ewei_express" class="button"><span class="icon-user  text-large"></span><br>个人设置</a>
+		</div>
+	</div>
+	
+</div>
+</body>
+</html>

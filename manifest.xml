@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[建工裹裹]]></name>
+		<identifie><![CDATA[ewei_express]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[$business]]></type>
+		<ability><![CDATA[建工裹裹业务支持系统]]></ability>
+		<description><![CDATA[建工裹裹业务支持系统]]></description>
+		<author><![CDATA[吴迪]]></author>
+		<url><![CDATA[http://bbs.we7.cc/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="快递管理" do="express" state="" direct="false" />
+			<entry title="配送管理" do="delivery" state="" direct="false" />
+			<entry title="员工管理" do="employee" state="" direct="false" />
+			<entry title="统计分析" do="statistics" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

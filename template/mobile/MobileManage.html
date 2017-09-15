@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>建工裹裹物流服务平台</title>
+    <link rel="stylesheet" href="../app/resource/pintu/pintuer.css">
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
+    <script src="../app/resource/pintu/pintuer.js"></script>
+
+</head>
+<body class="bg">
+<div class="layout doc-header">
+	<div class="navbar bg-blue bg-inverse">
+		<ul class="nav nav-inline nav-menu nav-tabs clearfix">
+			<li class="nav-head">手机号维护</li>
+		</ul>
+	</div>	
+	
+	<ul class="list-group">
+		{loop $lists $list}
+		<li><span class="float-right tag bg-dot"><a class="text-white" href="{php echo $this->createMobileUrl('mobilemanage',array('weid' => $row[weid], 'id' => $list['id'] ,'action'=>'del'))}">解绑</a></span>{$list['phonenum']}</li>
+		{/loop}
+	</ul>
+		
+	<div class="collapse-toggle">
+		<div class="panel">
+			<div class="panel-head">
+				<h4>
+				<span class="icon-plus-square"></span>新增手机号
+			</h4>
+			</div>
+			<div class="panel-body" id="third">
+				<form method="post">
+				<div class="padding-top input-inline">
+					<div class="form-group" style="padding-bottom: 0px;">
+						<input type="text" class="input" id="mobile" name="mobile" maxlength="11" placeholder="手机号" style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;" data-validate="required:必填,length#==11">
+					</div>
+					<div class="form-group" style="padding-bottom: 0px;">
+						<div class="input-group">
+							<input type="text" class="input radius-none" name="vcode" size="50" placeholder="验证码" data-validate="required:必填,length#==6">
+							<span class="addbtn">
+								<a class="button radius-none" id="getCode">获取验证码</a>
+							</span>
+						</div>
+					</div>
+					<input class="button button-block" type="submit" style="border-top-left-radius: 0; border-top-right-radius: 0;" value="提交">
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+		
+    <div class="border-top padding-top" style="height:100px">
+        <div class="text-center">
+            版权所有 ©  建工裹裹物流服务平台 All Rights Reserved.</div>
+    </div>
+	
+	<div class="fixed" data-style="fixed-bottom" data-offset-fixed="10" style="position:fixed;bottom:0px;">
+		<div class="button-group button-group-justified" style="z-index: 9;background: #f4f4f4">
+			<a href="index.php?i=6&c=entry&do=index&m=ewei_express" class="button"><span class="icon-send  text-large"></span><br>我的快递</a>
+			<!-- <a href="#" class="button"><span class="icon-pencil-square-o  text-large"></span><br>我的订单</a> -->
+			<a href="index.php?i=6&c=entry&do=setting&m=ewei_express" class="button"><span class="icon-user  text-large"></span><br>个人设置</a>
+		</div>
+	</div>
+	<script>
+	  $(function(){
+	   //获取短信验证码
+	   var validCode=true;
+	   $("#getCode").click (function () {
+		var time=60;
+		var code=$(this);
+		if (validCode) {
+		 $.post("../web/index.php?c=utility&a=verifycode&uniacid=6",{receiver:$("*[name='mobile']").val()});
+		 validCode=false;
+		 code.addClass("disabled");
+		 var t=setInterval(function () {
+		  time--;
+		  code.html(time+"秒");
+		  if (time==0) {
+		   clearInterval(t);
+		   code.html("重新获取");
+		   validCode=true;
+		   code.removeClass("disabled");
+		  }
+		 },1000)
+		}
+	   })
+	  })
+	</script>
+</div>
+</body>
+</html>

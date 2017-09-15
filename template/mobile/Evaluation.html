@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>建工裹裹物流服务平台</title>
+    <link rel="stylesheet" href="../app/resource/pintu/pintuer.css">
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
+    <script src="../app/resource/pintu/pintuer.js"></script>
+
+</head>
+<body class="bg">
+<div class="layout doc-header">
+	<div class="navbar bg-blue bg-inverse">
+		<ul class="nav nav-inline nav-menu nav-tabs clearfix">
+			<li class="nav-head">服务评价</li>
+		</ul>
+	</div>	
+	
+	<div class="padding">
+		<blockquote class="quote border-yellow doc-quoteyellow">请对本次服务进行评价，您的评价将有助于我们提高服务质量！
+		</blockquote>
+		
+		<form method="post">
+			<div class="form-group padding-top">
+				<div class="label">
+					<strong>服务水平</strong>
+				</div>
+				<div class="field">
+					<div class="button-group border-main radio">
+						<label class="button active">
+							<input name="service" value="非常满意" checked="checked" type="radio"><span class="icon icon-check"></span>非常满意
+						</label>
+						<label class="button">
+							<input name="service" value="满意" type="radio"><span class="icon icon-check"></span>满意
+						</label>
+						<label class="button">
+							<input name="service" value="一般" type="radio"><span class="icon icon-check"></span>一般
+						</label>
+						<label class="button">
+							<input name="service" value="很差" type="radio"><span class="icon icon-check"></span>很差
+						</label>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="label">
+					<strong>取货速度</strong>
+				</div>
+				<div class="field">
+					<div class="button-group border-main radio">
+						<label class="button active">
+							<input name="speed" value="简直神速" checked="checked" type="radio"><span class="icon icon-check"></span>简直神速
+						</label>
+						<label class="button">
+							<input name="speed" value="一般般" type="radio"><span class="icon icon-check"></span>一般般
+						</label>
+						<label class="button">
+							<input name="speed" value="慢如蜗牛" type="radio"><span class="icon icon-check"></span>慢如蜗牛
+						</label>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="label">
+					<strong>投诉&建议</strong>
+				</div>
+				<div class="field">
+					<div class="border border-main radius">
+						<textarea name="compliant" rows="5" class="input" placeholder="请在这里写下您的投诉或建议，非必填。"></textarea>
+					</div>
+				</div>
+			</div>
+			<button type="submit" class="button bg-main button-big button-block margin-top">提交</button>
+		</form>
+		
+	</div>
+	
+	
+    <div class="border-top padding-top" style="height:100px">
+        <div class="text-center">
+            版权所有 ©  建工裹裹物流服务平台 All Rights Reserved.</div>
+    </div>
+	
+	<div class="fixed" data-style="fixed-bottom" data-offset-fixed="10" style="position:fixed;bottom:0px;">
+		<div class="button-group button-group-justified" style="z-index: 9;background: #f4f4f4">
+			<a href="index.php?i=6&c=entry&do=index&m=ewei_express" class="button"><span class="icon-send  text-large"></span><br>我的快递</a>
+			<!-- <a href="#" class="button"><span class="icon-pencil-square-o  text-large"></span><br>我的订单</a> -->
+			<a href="index.php?i=6&c=entry&do=setting&m=ewei_express" class="button"><span class="icon-user  text-large"></span><br>个人设置</a>
+		</div>
+	</div>
+	
+</div>
+</body>
+</html>
